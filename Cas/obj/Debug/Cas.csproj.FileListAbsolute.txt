@@ -1,0 +1,11 @@
+C:\Users\dex4g\source\repos\Cas\obj\Debug\Cas.csproj.AssemblyReference.cache
+C:\Users\dex4g\source\repos\Cas\obj\Debug\Cas.Properties.Resources.resources
+C:\Users\dex4g\source\repos\Cas\obj\Debug\Cas.csproj.GenerateResource.cache
+C:\Users\dex4g\source\repos\Cas\obj\Debug\Cas.csproj.CoreCompileInputs.cache
+C:\Users\dex4g\source\repos\Cas\obj\Debug\Cas.Form1.resources
+C:\Users\dex4g\source\repos\Cas\bin\Debug\Cas.exe.config
+C:\Users\dex4g\source\repos\Cas\bin\Debug\Cas.exe
+C:\Users\dex4g\source\repos\Cas\bin\Debug\Cas.pdb
+C:\Users\dex4g\source\repos\Cas\obj\Debug\Cas.exe
+C:\Users\dex4g\source\repos\Cas\obj\Debug\Cas.pdb
+C:\Users\dex4g\source\repos\Cas\obj\Debug\Cas.exe.config
