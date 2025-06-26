@@ -1,41 +1,71 @@
 ﻿using System;
-using System.Reflection.Emit;
+using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
 using System.Windows.Forms;
 
 namespace Cas
 {
+
     public partial class Form1 : Form
     {
-        // Список символов
-        string[] symbols = { "🍒", "🍋", "🍊", "🍉", "⭐", "7️⃣" };
+        Icon icon;
+
+        List<Image> symbolImages = new List<Image>();
+        List<string> symbolPaths = new List<string>();
         Random rand = new Random();
 
-        // Счётчики
         int tickCount1 = 0;
         int tickCount2 = 0;
         int tickCount3 = 0;
+
+        string chosen1 = "", chosen2 = "", chosen3 = "";
 
         public Form1()
         {
             InitializeComponent();
 
-            // Подключаем обработчики таймеров
+            // Загружаем изображения из папки
+            LoadSymbols();
+
+            // Подключаем обработчики
             timer1.Tick += timer1_Tick;
             timer2.Tick += timer2_Tick;
             timer3.Tick += timer3_Tick;
 
-            // Подключаем кнопку
             button1.Click += button1_Click;
         }
 
-        // Метод получения случайного символа
-        private string GetRandomSymbol()
+        private void LoadSymbols()
         {
-            return symbols[rand.Next(symbols.Length)];
+            string imageFolder = Path.Combine(Application.StartupPath, "Images");
+            if (!Directory.Exists(imageFolder))
+            {
+                MessageBox.Show("Папка 'Images' не найдена!");
+                return;
+            }
+
+            foreach (string file in Directory.GetFiles(imageFolder, "*.png"))
+            {
+                symbolImages.Add(Image.FromFile(file));
+                symbolPaths.Add(file);
+            }
+
+            if (symbolImages.Count == 0)
+            {
+                MessageBox.Show("Нет изображений в папке 'Images'!");
+            }
+        }
+
+        private int GetRandomIndex()
+        {
+            return rand.Next(symbolImages.Count);
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
+            if (symbolImages.Count == 0) return;
+
             button1.Enabled = false;
 
             tickCount1 = tickCount2 = tickCount3 = 0;
@@ -48,7 +78,9 @@ namespace Cas
         private void timer1_Tick(object sender, EventArgs e)
         {
             tickCount1++;
-            label1.Text = GetRandomSymbol();
+            int i = GetRandomIndex();
+            pictureBox1.Image = symbolImages[i];
+            chosen1 = symbolPaths[i];
 
             if (tickCount1 >= 20)
                 timer1.Stop();
@@ -59,7 +91,9 @@ namespace Cas
         private void timer2_Tick(object sender, EventArgs e)
         {
             tickCount2++;
-            label2.Text = GetRandomSymbol();
+            int i = GetRandomIndex();
+            pictureBox2.Image = symbolImages[i];
+            chosen2 = symbolPaths[i];
 
             if (tickCount2 >= 30)
                 timer2.Stop();
@@ -70,7 +104,9 @@ namespace Cas
         private void timer3_Tick(object sender, EventArgs e)
         {
             tickCount3++;
-            label3.Text = GetRandomSymbol();
+            int i = GetRandomIndex();
+            pictureBox3.Image = symbolImages[i];
+            chosen3 = symbolPaths[i];
 
             if (tickCount3 >= 40)
                 timer3.Stop();
@@ -84,15 +120,29 @@ namespace Cas
             {
                 button1.Enabled = true;
 
-                if (label1.Text == label2.Text && label2.Text == label3.Text)
+                if (chosen1 == chosen2 && chosen2 == chosen3)
                 {
-                    MessageBox.Show("Вы выиграли!", "Поздравляем");
+                    MessageBox.Show("🎉 Вы выиграли!", "Поздравляем");
                 }
                 else
                 {
                     MessageBox.Show("Попробуйте ещё раз!", "Не повезло");
                 }
             }
+        }
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox3_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
